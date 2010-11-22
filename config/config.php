@@ -28,13 +28,11 @@
  */
 
 
-
 /**
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['loadFormField']['formcheck'] = array('FormCheck', 'patchFormField');
-$GLOBALS['TL_HOOKS']['outputFrontendTemplate']['formcheck'] = array('FormCheck', 'outputTemplate');
-
+$GLOBALS['TL_HOOKS']['parseFrontendTemplate']['formcheck'] = array('FormCheck', 'addSpecialFormSupport');
 
 /**
  * Initializiation

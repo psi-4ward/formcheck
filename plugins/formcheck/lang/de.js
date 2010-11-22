@@ -14,10 +14,11 @@ formcheckLanguage = {
 	confirm: "Das Feld ist verschieden von %0.",
 	differs: "Der Wert muss unterschiedlich zu %0 sein.",
 	length_str: "Das Feld ist verschieden von %0.",
-	length_fix: "Falsche Länge, es müssen exakt %0 Buchstaben sein.",
+	length_fix: "Falsche Lï¿½nge, es mï¿½ssen exakt %0 Buchstaben sein.",
 	lengthmax: "Der Wert ist nicht korrekt, maximale Anzahl Charakter %0.",
 	lengthmin: "Der Wert ist nicht korrekt, minimale Anzahl Charakter %0.",
 	checkbox: "Bitte aktivieren.",
+	checkboxes_group : 'Bitte kreuzen Sie mindestens %0 Feld(er) an',
 	radios: "Bitte einen Wert ausw&auml;hlen.",
 	select: "Bitte einen Wert ausw&auml;hlen."
 }

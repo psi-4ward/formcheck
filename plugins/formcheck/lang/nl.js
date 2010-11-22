@@ -18,6 +18,7 @@ formchecformcheckLanguage = {
 	lengthmax: "De lengte is onjuist, het moet maximaal %0 lang zijn",
 	lengthmin: "De lengte is onjuist, het moet minstens %0 lang zijn",
 	checkbox: "Vink het hokje aan",
+	checkboxes_group : 'Gelieve minstens %0 hokjes aan te vinken',
 	radios: "Maak een keuze",
 	select: "Kies een waarde"
 }

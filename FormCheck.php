@@ -34,15 +34,7 @@ class FormCheck extends Frontend
 	{
 		if ($objWidget instanceof uploadable)
 			return $objWidget;
-			
-		// Load javascript + css
-		$GLOBALS['TL_CSS']['formcheck'] = 'plugins/formcheck/theme/classic/formcheck.css';
-		$GLOBALS['TL_JAVASCRIPT']['formcheck'] = 'plugins/formcheck/formcheck.js';
-		$GLOBALS['TL_JAVASCRIPT']['formcheck.lang'] = 'plugins/formcheck/lang/en.js';
-		
-		if (file_exists( TL_ROOT . '/plugins/formcheck/lang/' . $GLOBALS['TL_LANGUAGE'] . '.js'))
-			$GLOBALS['TL_JAVASCRIPT']['formcheck.lang'] = 'plugins/formcheck/lang/' . $GLOBALS['TL_LANGUAGE'] . '.js';
-			
+	
 			
 		// add form id to initialization routine
 		if (!isset($GLOBALS['FORMCHECK'][$intForm]))
@@ -160,88 +152,20 @@ class FormCheck extends Frontend
 	}
 	
 	
-	public function outputTemplate($strBuffer)
+	// Helper function to add registration and personal-data formIDs initialization routine
+	// called from parseFrontendTemplate-HOOK
+	public function addSpecialFormSupport($strContent, $strTemplate)
 	{
-		$strFormCheck = '';
-		
-		$arrFormIds = array();
-		$GLOBALS['FORMCHECK'] = array_unique($GLOBALS['FORMCHECK']);
-		
-		foreach( $GLOBALS['FORMCHECK'] as $formId )
+		switch($strTemplate)
 		{
-			$arrFormIds[] = $formId;
+			case 'member_default':
+			case 'member_grouped':
+				if(preg_match('~<form.*id="(.+)".*~Ui',$strContent,$erg))
+					$GLOBALS['FORMCHECK'][$erg[1]] = $erg[1];
+			break;
 		}
 		
-		
-		// Support registration form
-		if (strpos($strBuffer, 'name="FORM_SUBMIT" value="tl_registration"') !== false)
-		{
-			$strFormCheck .= "$$('.mod_registration form').setProperty('id', 'tl_registration');\n";
-			$arrFormIds[] = 'tl_registration';
-		}
-		
-		// Support personal-data form
-		if (strpos($strBuffer, 'name="FORM_SUBMIT" value="tl_member_') !== false)
-		{
-			$strFormCheck .= "$$('.mod_personalData form').setProperty('id', 'tl_personalData');\n";
-			$arrFormIds[] = 'tl_personalData';
-		}
-		
-		
-		if (count($arrFormIds))
-		{
-/* Inserting is done while loadFormField, dont know why Andreas does it here again.			
-			// Inject CSS + JS files
-			if (strpos($strBuffer, 'formcheck.js') === false)
-			{
-				$strBuffer = str_replace('</head>', '
-<link rel="stylesheet" href="plugins/formcheck/theme/classic/formcheck.css" type="text/css" media="all" />
-<script type="text/javascript" src="plugins/formcheck/formcheck.js"></script>
-' . (file_exists( TL_ROOT . '/plugins/formcheck/lang/' . $GLOBALS['TL_LANGUAGE'] . '.js') ? '<script type="text/javascript" src="plugins/formcheck/lang/' . $GLOBALS['TL_LANGUAGE'] . '.js"></script>' : '') . '
-</head>
-', $strBuffer); 
-			}
-*/			
-			
-			$objDate = new Date();
-			$strDateRegex = '/'. $objDate->getRegexp($GLOBALS['TL_CONFIG']['dateFormat']) .'/i';
-			$strDatimRegex = '/'. $objDate->getRegexp($GLOBALS['TL_CONFIG']['datimFormat']) .'/i';
-			$strTimeRegex = '/'. $objDate->getRegexp($GLOBALS['TL_CONFIG']['timeFormat']) .'/i';
-			
-			foreach( $arrFormIds as $formId )
-			{
-				$strFormCheck .= "
-new FormCheck('" . $formId . "', {
-	alerts : {
-		date: '" . sprintf($GLOBALS['TL_LANG']['ERR']['date'], $objDate->getInputFormat($GLOBALS['TL_CONFIG']['dateFormat'])) . "',
-		datim: '" . sprintf($GLOBALS['TL_LANG']['ERR']['date'], $objDate->getInputFormat($GLOBALS['TL_CONFIG']['datimFormat'])) . "',
-		time: '" . sprintf($GLOBALS['TL_LANG']['ERR']['date'], $objDate->getInputFormat($GLOBALS['TL_CONFIG']['timeFormat'])) . "'
-	},
-	regexp : {
-		date: '" . $strDateRegex . "',
-		datim: '" . $strDatimRegex . "',
-		time: '" . $strTimeRegex . "',
-		phone: '/^[\d \+\(\)\/-]*$/'
+		return $strContent;
 	}
-});";
-			}
-			
-			$strBuffer = str_replace("</body>", '
-<script type="text/javascript">
-<!--//--><![CDATA[//><!--
-window.addEvent(\'domready\', function()
-{
-' . $strFormCheck . '
-});
-//--><!]]>
-</script>
-</body>', $strBuffer);
-		}
-		
-		
-		// Fix label class problem
-		$strBuffer = preg_replace('@(<label.*?class=".*?)\[[^"]*@', '$1$2', $strBuffer);
-		
-		return $strBuffer;
-	}
+	
 }
