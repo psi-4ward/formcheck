@@ -33,6 +33,15 @@ window.addEvent('domready', function(){
 
 <?php // Remvoe validation-classes from labels ?>
 $$('label').each(function(el){ el.set('class',el.get('class').replace(/validate\[[^\]]*\]/gi,'')); });
+
+<?php // Pass validation to radio buttons ?>
+$$('div.radio_container').each(function(el){
+	var erg = el.get('class').match(/(validate[^"\s]+)/g);
+	if(erg.length < 1) return;
+	el.removeClass(erg[0]);
+	el.getElement('input[type=radio]').addClass(erg[0]);
+});
+
 <?php // FormCheck config ?>
 var formcheckConfig = {
 	alerts : {
