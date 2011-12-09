@@ -1,5 +1,5 @@
 formcheckLanguage = {
-	required : "campo obligatorio",
+	required : "campo obbligatorio",
 	alpha : "no caratteri speciali",
 	alphanum : "alfanumerico",
 	nodigit : "no numeri",
@@ -7,9 +7,9 @@ formcheckLanguage = {
 	digitmin : "caratteri minimi %0",
 	digitltd : "minimo %0, massimo %1 caratteri",
 	number : "numeri",
-	email : "email valida",
-	phone : "telefono valido",
-	url : "indirizzo valido",
+	email : "email non valida",
+	phone : "telefono non valido",
+	url : "indirizzo non valido",
 	
 	confirm : "uguale a %0",
 	differs : "diverso da %0",
