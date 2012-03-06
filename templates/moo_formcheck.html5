@@ -32,7 +32,10 @@ $strTimeRegex = '/'. $objDate->getRegexp($GLOBALS['TL_CONFIG']['timeFormat']) .'
 window.addEvent('domready', function(){
 
 <?php // Remvoe validation-classes from labels ?>
-$$('label').each(function(el){ el.set('class',el.get('class').replace(/validate\[[^\]]*\]/gi,'')); });
+$$('label').each(function(el){
+	if(el.get('class') == null) return;
+	el.set('class',el.get('class').replace(/validate\[[^\]]*\]/gi,''));
+});
 
 <?php // Pass validation to radio buttons and checkboxes ?>
 <?php // Pass validation to radio buttons ?>
