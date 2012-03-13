@@ -310,11 +310,9 @@ var FormCheck = new Class({
 
 			this.setOptions(options);
 
-			this.form.setProperty('action',
-				this.options.submitAction || this.form.getProperty('action') || 'post');
+			this.form.setProperty('action', this.options.submitAction || this.form.getProperty('action') || '');
 
-			this.form.setProperty('method',
-				this.options.submitMethod || this.form.getProperty('method') || '');
+			this.form.setProperty('method', this.options.submitMethod || this.form.getProperty('method') || '');
 
 			this.validations = [];
 			this.alreadyIndicated = false;
