@@ -10,7 +10,7 @@ $GLOBALS['TL_CSS']['formcheck'] = 'plugins/formcheck/theme/blue/formcheck.css';
 //$GLOBALS['TL_CSS']['formcheck'] = 'plugins/formcheck/theme/grey/formcheck.css';
 //$GLOBALS['TL_CSS']['formcheck'] = 'plugins/formcheck/theme/red/formcheck.css';
 //$GLOBALS['TL_CSS']['formcheck'] = 'plugins/formcheck/theme/white/formcheck.css';
-		
+
 
 
 /** Dont change anything below **/
@@ -65,7 +65,7 @@ var formcheckConfig = {
 	}
 };
 <?php foreach($GLOBALS['FORMCHECK'] as $formId): ?>
-new FormCheck('<?php echo $formId?>',formcheckConfig);
+formCheck<?php echo $formId; ?> = new FormCheck('<?php echo $formId?>',formcheckConfig);
 <?php endforeach;?>
 });
 //--><!]]>
