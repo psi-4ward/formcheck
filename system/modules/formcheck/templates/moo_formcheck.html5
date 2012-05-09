@@ -66,7 +66,7 @@ var formcheckConfig = {
 	}
 };
 <?php foreach($GLOBALS['FORMCHECK'] as $formId): ?>
-new FormCheck('<?php echo $formId?>',formcheckConfig);
+formCheck<?php echo $formId; ?> = new FormCheck('<?php echo $formId?>',formcheckConfig);
 <?php endforeach;?>
 });
 //--><!]]>
